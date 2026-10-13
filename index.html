@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#060818" />
+  <title>Arquivo Mental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <main class="app">
+
+    <!-- MENU -->
+    <section id="screen-menu" class="screen active">
+      <div class="logo">
+        <span class="logo-card c1">?</span>
+        <span class="logo-card c2">★</span>
+        <span class="logo-card c3">?</span>
+      </div>
+      <h1>Arquivo Mental</h1>
+      <p class="sub">Vire as cartas, ache os pares e vença os amigos.<br>De 2 a 16 jogadores.</p>
+      <div class="stack">
+        <button class="btn primary big" id="btn-online">Modo Online</button>
+        <button class="btn gold big" id="btn-local">Modo Local</button>
+      </div>
+    </section>
+
+    <!-- LOCAL: CONFIGURAÇÃO -->
+    <section id="screen-local" class="screen">
+      <h2>Modo Local</h2>
+      <p class="sub">Todos jogam no mesmo aparelho, um de cada vez.</p>
+
+      <div class="panel">
+        <label class="field-label">Jogadores</label>
+        <div class="stepper">
+          <button class="btn round" id="local-minus" aria-label="Menos jogadores">−</button>
+          <span id="local-count">2</span>
+          <button class="btn round" id="local-plus" aria-label="Mais jogadores">+</button>
+        </div>
+        <div id="local-names" class="names"></div>
+
+        <label class="field-label" for="local-size">Tamanho do tabuleiro</label>
+        <select id="local-size" class="input"></select>
+      </div>
+
+      <div class="stack">
+        <button class="btn primary big" id="local-start">Começar</button>
+        <button class="btn ghost" data-back>Voltar</button>
+      </div>
+    </section>
+
+    <!-- ONLINE: CRIAR / ENTRAR -->
+    <section id="screen-online" class="screen">
+      <h2>Modo Online</h2>
+      <p class="sub">Crie uma sala e passe o código, ou entre com o código de um amigo.</p>
+
+      <div class="panel">
+        <label class="field-label" for="online-name">Seu nome</label>
+        <input id="online-name" class="input" maxlength="14" placeholder="Digite seu nome" autocomplete="off" />
+      </div>
+
+      <div class="stack">
+        <button class="btn primary big" id="btn-create">Criar sala</button>
+        <div class="join-row">
+          <input id="join-code" class="input code" maxlength="5" placeholder="CÓDIGO" autocomplete="off" autocapitalize="characters" />
+          <button class="btn gold" id="btn-join">Entrar</button>
+        </div>
+        <button class="btn ghost" data-back>Voltar</button>
+      </div>
+    </section>
+
+    <!-- SALA (LOBBY) -->
+    <section id="screen-lobby" class="screen">
+      <h2>Sala</h2>
+      <div class="room-code">
+        <span class="room-label">Código da sala</span>
+        <button id="room-code" class="code-pill" title="Copiar código">-----</button>
+        <span class="room-hint" id="copy-hint">Toque no código para copiar</span>
+      </div>
+
+      <div class="panel">
+        <div class="lobby-head">
+          <span class="field-label">Jogadores</span>
+          <span id="lobby-count" class="badge">1/16</span>
+        </div>
+        <ul id="lobby-players" class="player-list"></ul>
+
+        <div id="lobby-host-opts">
+          <label class="field-label" for="lobby-size">Tamanho do tabuleiro</label>
+          <select id="lobby-size" class="input"></select>
+        </div>
+        <p id="lobby-wait" class="sub small hidden">Aguardando o anfitrião iniciar a partida…</p>
+      </div>
+
+      <div class="stack">
+        <button class="btn primary big" id="lobby-start">Iniciar jogo</button>
+        <button class="btn ghost" id="lobby-leave">Sair da sala</button>
+      </div>
+    </section>
+
+    <!-- JOGO -->
+    <section id="screen-game" class="screen game">
+      <header class="game-top">
+        <button class="btn small ghost" id="game-exit">Sair</button>
+        <div id="turn-banner" class="turn">Vez de —</div>
+        <div id="game-room" class="badge hidden"></div>
+      </header>
+
+      <div id="scoreboard" class="scoreboard" aria-live="polite"></div>
+
+      <div class="board-wrap">
+        <div id="board" class="board"></div>
+      </div>
+    </section>
+
+    <!-- FIM DE JOGO -->
+    <div id="modal-end" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-box">
+        <div class="trophy">🏆</div>
+        <h2 id="end-title">Fim de jogo!</h2>
+        <ol id="end-ranking" class="ranking"></ol>
+        <div class="stack">
+          <button class="btn primary" id="end-again">Jogar de novo</button>
+          <button class="btn ghost" id="end-menu">Voltar ao menu</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status"></div>
+  </main>
+
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
